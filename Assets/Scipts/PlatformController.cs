@@ -6,20 +6,27 @@ using UnityEngine;
 public class PlatformController : MonoBehaviour {
 
     public float speed = 1;
+    public float distance;
+    public int maxDistance;
     private bool isMoving = false;
     public Transform[] targets;
-    private int nextIndex;
+    public int nextIndex;
+    private Vector3 targetPosition;
+    private Vector3 lookAtTarget;
+    public Quaternion playerRot;
+    public float rotSpeed = 1;
 
-	// Use this for initialization
-	void Start () {
+
+    // Use this for initialization
+    void Start () {
         //set player to first target
         transform.position = targets[0].position;
         nextIndex = 1;
+        SetTargetPosition();
 
     }
-	
-	// Update is called once per frame
-	void Update () {
+    // Update is called once per frame
+    void Update () {
         HandleMovement();
         HandleInput();
     }
@@ -38,13 +45,22 @@ public class PlatformController : MonoBehaviour {
         }
         else {
             //calculate distance from target
-            float distance = Vector3.Distance(transform.position, targets[nextIndex].position);
+            distance = Vector3.Distance(transform.position, targets[nextIndex].position);
             //have we arrived??
-            if (distance > 0) {
+            if (distance >= maxDistance) {
                 // calculate the next move (step)
                 float step = speed * Time.deltaTime;
 
                 //move by step amount
+                //transform.position = Vector3.MoveTowards(transform.position, targets[nextIndex].position, step);
+
+                //transform.rotation = Quaternion.Slerp(transform.rotation, playerRot, rotSpeed * Time.deltaTime);
+                //transform.LookAt(targets[nextIndex].position);
+                //Get the vector between the transform and the target, calculate the rotation needed 
+                //to "look at" it, and interpolate from the current rotation to the desired one
+                Vector3 relativePos = targets[nextIndex].position - transform.position;
+                Quaternion rotation = Quaternion.LookRotation(relativePos);
+                transform.rotation = Quaternion.Lerp(transform.rotation, rotation, Time.deltaTime * rotSpeed);
                 transform.position = Vector3.MoveTowards(transform.position, targets[nextIndex].position, step);
             }
             else {
@@ -52,7 +68,25 @@ public class PlatformController : MonoBehaviour {
                 if (nextIndex >= targets.Length) {
                     nextIndex = 0;
                 }
+                SetTargetPosition();
             }
+        }
+    }
+    void SetTargetPosition() {
+        Ray ray = Camera.main.ScreenPointToRay(targets[nextIndex].position);
+        RaycastHit hit;
+
+        if(Physics.Raycast(ray, out hit, 1000)) {
+            targetPosition = hit.point;
+            lookAtTarget = new Vector3(targetPosition.x - transform.position.x, transform.position.y, targetPosition.z - transform.position.z);
+            playerRot = Quaternion.LookRotation(lookAtTarget);
+        }
+    }
+    public void triggerPressed() {
+        Debug.Log("Trigger pressed from outside calling class!");
+        speed += 1;
+        if(speed >= 10) {
+            speed = 1;
         }
     }
 }
