@@ -685,12 +685,12 @@ namespace Valve.VR.InteractionSystem
 			if ( hoveringInteractable )
 			{
 				hoveringInteractable.SendMessage( "HandHoverUpdate", this, SendMessageOptions.DontRequireReceiver );
-			}
-		}
+			} 
+        }
 
 
-		//-------------------------------------------------
-		void LateUpdate()
+        //-------------------------------------------------
+        void LateUpdate()
 		{
 			//Re-attach the controller if nothing else is attached to the hand
 			if ( controllerObject != null && attachedObjects.Count == 0 )
@@ -724,11 +724,37 @@ namespace Valve.VR.InteractionSystem
 		void FixedUpdate()
 		{
 			UpdateHandPoses();
-		}
+            if (controller != null) {
+                // 1
+                if (controller.GetAxis() != Vector2.zero) {
+                    Debug.Log(gameObject.name + controller.GetAxis());
+                }
 
+                // 2
+                if (controller.GetHairTriggerDown()) {
+                    Debug.Log(gameObject.name + " Trigger Press");
+                }
 
-		//-------------------------------------------------
-		void OnDrawGizmos()
+                // 3
+                if (controller.GetHairTriggerUp()) {
+                    Debug.Log(gameObject.name + " Trigger Release");
+                }
+
+                // 4
+                if (controller.GetPressDown(SteamVR_Controller.ButtonMask.Grip)) {
+                    Debug.Log(gameObject.name + " Grip Press");
+                    //platformClassCaller.triggerPressed();
+                }
+
+                // 5
+                if (controller.GetPressUp(SteamVR_Controller.ButtonMask.Grip)) {
+                    Debug.Log(gameObject.name + " Grip Release");
+                }
+            }
+        }
+
+        //-------------------------------------------------
+        void OnDrawGizmos()
 		{
 			Gizmos.color = new Color( 0.5f, 1.0f, 0.5f, 0.9f );
 			Transform sphereTransform = hoverSphereTransform ? hoverSphereTransform : this.transform;
