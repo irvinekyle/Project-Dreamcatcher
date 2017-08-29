@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 
 public class PlatformController : MonoBehaviour {
 
@@ -15,6 +16,7 @@ public class PlatformController : MonoBehaviour {
     private Vector3 lookAtTarget;
     public Quaternion playerRot;
     public float rotSpeed = 1;
+    NavMeshAgent _navMeshAgent;
 
 
     // Use this for initialization
@@ -23,6 +25,7 @@ public class PlatformController : MonoBehaviour {
         transform.position = targets[0].position;
         nextIndex = 1;
         SetTargetPosition();
+        _navMeshAgent = GetComponent<NavMeshAgent>();
 
     }
     // Update is called once per frame
@@ -58,10 +61,13 @@ public class PlatformController : MonoBehaviour {
                 //transform.LookAt(targets[nextIndex].position);
                 //Get the vector between the transform and the target, calculate the rotation needed 
                 //to "look at" it, and interpolate from the current rotation to the desired one
-                Vector3 relativePos = targets[nextIndex].position - transform.position;
+                /* Vector3 relativePos = targets[nextIndex].position - transform.position;
                 Quaternion rotation = Quaternion.LookRotation(relativePos);
                 transform.rotation = Quaternion.Lerp(transform.rotation, rotation, Time.deltaTime * rotSpeed);
                 transform.position = Vector3.MoveTowards(transform.position, targets[nextIndex].position, step);
+                */
+
+                _navMeshAgent.SetDestination(targets[nextIndex].position);
             }
             else {
                 nextIndex += 1;
@@ -82,11 +88,21 @@ public class PlatformController : MonoBehaviour {
             playerRot = Quaternion.LookRotation(lookAtTarget);
         }
     }
-    public void triggerPressed() {
-        Debug.Log("Trigger pressed from outside calling class!");
-        speed += 1;
-        if(speed >= 10) {
-            speed = 1;
+    public void triggerPressed(string callerName) {
+        Debug.Log("Trigger pressed from " + callerName);
+        if(callerName == "Hand1") {
+            speed += 1;
+            if(speed >= 10) {
+                speed = 10;
+            }
         }
+        else if(callerName == "Hand2") {
+            speed -= 1;
+            if (speed <= 0) {
+                speed = 1;
+                _navMeshAgent.speed = speed;
+            }
+        }
+        _navMeshAgent.speed = speed;
     }
 }

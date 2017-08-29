@@ -653,7 +653,7 @@ namespace Valve.VR.InteractionSystem
 		//-------------------------------------------------
 		void OnEnable()
 		{
-			inputFocusAction.enabled = true;
+
 
 			// Stagger updates between hands
 			float hoverUpdateBegin = ( ( otherHand != null ) && ( otherHand.GetInstanceID() < GetInstanceID() ) ) ? ( 0.5f * hoverUpdateInterval ) : ( 0.0f );
@@ -724,33 +724,6 @@ namespace Valve.VR.InteractionSystem
 		void FixedUpdate()
 		{
 			UpdateHandPoses();
-            if (controller != null) {
-                // 1
-                if (controller.GetAxis() != Vector2.zero) {
-                    Debug.Log(gameObject.name + controller.GetAxis());
-                }
-
-                // 2
-                if (controller.GetHairTriggerDown()) {
-                    Debug.Log(gameObject.name + " Trigger Press");
-                }
-
-                // 3
-                if (controller.GetHairTriggerUp()) {
-                    Debug.Log(gameObject.name + " Trigger Release");
-                }
-
-                // 4
-                if (controller.GetPressDown(SteamVR_Controller.ButtonMask.Grip)) {
-                    Debug.Log(gameObject.name + " Grip Press");
-                    //platformClassCaller.triggerPressed();
-                }
-
-                // 5
-                if (controller.GetPressUp(SteamVR_Controller.ButtonMask.Grip)) {
-                    Debug.Log(gameObject.name + " Grip Release");
-                }
-            }
         }
 
         //-------------------------------------------------
