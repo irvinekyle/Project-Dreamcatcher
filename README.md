@@ -1,7 +1,7 @@
 # Project-Dreamcatcher
 Vr Bow and arrow game ... on horseback yeah!
 
-![image](https://trello-attachments.s3.amazonaws.com/596f4fab04478eb885c1234a/596f511e6eed0037c84cd6ae/206d81dafc03e9bc9902ef8fddaaa4f0/image.png)
+![image](https://trello-attachments.s3.amazonaws.com/596f4fab04478eb885c1234a/596f511e6eed0037c84cd6ae/206d81dafc03e9bc9902ef8fddaaa4f0/image.png) 
 
 
 # Pitch
