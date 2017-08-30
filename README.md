@@ -18,6 +18,7 @@ The goal is to guide the Horse to the hidden lair of the SKinwalker shaman, kill
 # Weapons
 - Sacred bow: this is the main weapon of the game.  Shoots energy arrows.  Also has a kind of shield that can be used to block incoming fire.
 
+![image](http://www.juniperandexoticwood.com/images/portfolio/bows_large.jpg)
 
 
 # Story
