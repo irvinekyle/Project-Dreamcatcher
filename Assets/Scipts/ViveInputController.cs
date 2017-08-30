@@ -26,7 +26,7 @@ public class ViveInputController : MonoBehaviour {
         if (hand.controller != null) {
             // 1
             if (hand.controller.GetAxis() != Vector2.zero) {
-               // Debug.Log(gameObject.name + Controller.GetAxis());
+               Debug.Log(gameObject.name + hand.controller.GetAxis());
             }
 
             // 2
