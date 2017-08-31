@@ -10,7 +10,7 @@ public class PlatformController : MonoBehaviour {
     public float distance;
     public int maxDistance;
     private bool isMoving = false;
-    public Transform[] targets;
+    public Transform[] waypoints;
     public int nextIndex;
     private Vector3 targetPosition;
     private Vector3 lookAtTarget;
@@ -22,7 +22,7 @@ public class PlatformController : MonoBehaviour {
     // Use this for initialization
     void Start () {
         //set player to first target
-        transform.position = targets[0].position;
+        transform.position = waypoints[0].position;
         nextIndex = 1;
         SetTargetPosition();
         _navMeshAgent = GetComponent<NavMeshAgent>();
@@ -30,6 +30,7 @@ public class PlatformController : MonoBehaviour {
     }
     // Update is called once per frame
     void Update () {
+        if (speed > 0) isMoving = true;
         HandleMovement();
         HandleInput();
     }
@@ -48,7 +49,7 @@ public class PlatformController : MonoBehaviour {
         }
         else {
             //calculate distance from target
-            distance = Vector3.Distance(transform.position, targets[nextIndex].position);
+            distance = Vector3.Distance(transform.position, waypoints[nextIndex].position);
             //have we arrived??
             if (distance >= maxDistance) {
                 // calculate the next move (step)
@@ -67,11 +68,11 @@ public class PlatformController : MonoBehaviour {
                 transform.position = Vector3.MoveTowards(transform.position, targets[nextIndex].position, step);
                 */
 
-                _navMeshAgent.SetDestination(targets[nextIndex].position);
+                _navMeshAgent.SetDestination(waypoints[nextIndex].position);
             }
             else {
                 nextIndex += 1;
-                if (nextIndex >= targets.Length) {
+                if (nextIndex >= waypoints.Length) {
                     nextIndex = 0;
                 }
                 SetTargetPosition();
@@ -79,7 +80,7 @@ public class PlatformController : MonoBehaviour {
         }
     }
     void SetTargetPosition() {
-        Ray ray = Camera.main.ScreenPointToRay(targets[nextIndex].position);
+        Ray ray = Camera.main.ScreenPointToRay(waypoints[nextIndex].position);
         RaycastHit hit;
 
         if(Physics.Raycast(ray, out hit, 1000)) {
@@ -98,8 +99,8 @@ public class PlatformController : MonoBehaviour {
         }
         else if(callerName == "Hand2") {
             speed -= 1;
-            if (speed <= 0) {
-                speed = 1;
+            if (speed < 0) {
+                speed = 0;
                 _navMeshAgent.speed = speed;
             }
         }

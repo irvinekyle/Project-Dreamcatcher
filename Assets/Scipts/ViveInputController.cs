@@ -8,7 +8,7 @@ public class ViveInputController : MonoBehaviour {
 
     // 1
     //public new SteamVR_Controller.Device controller;   //Reference for first wand
-    public PlatformController platformClassCaller;
+    public PlatformController platformToControl;
     private Hand hand;
 
     // 2
@@ -42,7 +42,7 @@ public class ViveInputController : MonoBehaviour {
             // 4
             if (hand.controller.GetPressDown(SteamVR_Controller.ButtonMask.Grip)) {
                 Debug.Log(gameObject.name + " Grip Press");
-                platformClassCaller.triggerPressed(gameObject.name);
+                platformToControl.triggerPressed(gameObject.name);
             }
 
             // 5
