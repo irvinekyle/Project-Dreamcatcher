@@ -4,8 +4,8 @@ Vr Bow and arrow game ... on horseback yeah!
 # Instructions
 - Place the wand with the text overlay in your right hand
 - Squeeze the grip button on the right hand controller to go faster, left hand grip to go slower
-- use the trigger to pickup the arrow located on the back of the horse
-- shoot stuff and enjoy yourself...try not to puke when the horse rotates :D
+- use the trigger to pickup the bow and arrow located on the back of the horse
+- ride around shoot stuff and enjoy yourself...try not to puke when the horse rotates :D
 
 ![image](https://trello-attachments.s3.amazonaws.com/596f4fab04478eb885c1234a/596f511e6eed0037c84cd6ae/206d81dafc03e9bc9902ef8fddaaa4f0/image.png)![image](https://github.com/irvinekyle/Project-Dreamcatcher/blob/master/ProjectNotes/Reference%20Images/-font-b-Dream-b-font-font-b-Catcher-b-font-font-b-Black-b-font.jpg?raw=true)
 
