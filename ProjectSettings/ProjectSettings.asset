@@ -373,6 +373,9 @@ PlayerSettings:
   switchUdpSendBufferSize: 9
   switchUdpReceiveBufferSize: 42
   switchSocketBufferEfficiency: 4
+  switchSocketInitializeEnabled: 1
+  switchNetworkInterfaceManagerInitializeEnabled: 1
+  switchPlayerConnectionEnabled: 1
   ps4NPAgeRating: 12
   ps4NPTitleSecret: 
   ps4NPTrophyPackPath: 
@@ -594,7 +597,7 @@ PlayerSettings:
   apiCompatibilityLevel: 2
   cloudProjectId: c70de7af-829a-4f59-82d2-c71018bc4ab9
   projectName: Project-Dreamcatcher
-  organizationId: kyle-irvine-552a063e-b5d1-4380-a0b0-5077aa79605e
+  organizationId: kyle-irvine-ecc267a3-ae49-4406-a92e-8bd43d1d1346
   cloudEnabled: 0
   enableNativePlatformBackendsForNewInputSystem: 0
   disableOldInputManagerSupport: 0
