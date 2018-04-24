@@ -17,7 +17,9 @@ public class PlatformController : MonoBehaviour {
     public Quaternion playerRot;
     public float rotSpeed = 1;
     NavMeshAgent _navMeshAgent;
-
+    public float minX, maxX;
+    public float minZ, maxZ;
+    public Vector3 newWaypoint;
 
     // Use this for initialization
     void Start () {
@@ -49,7 +51,7 @@ public class PlatformController : MonoBehaviour {
         }
         else {
             //calculate distance from target
-            distance = Vector3.Distance(transform.position, waypoints[nextIndex].position);
+            distance = Vector3.Distance(transform.position, newWaypoint);
             //have we arrived??
             if (distance >= maxDistance) {
                 // calculate the next move (step)
@@ -68,19 +70,26 @@ public class PlatformController : MonoBehaviour {
                 transform.position = Vector3.MoveTowards(transform.position, targets[nextIndex].position, step);
                 */
 
-                _navMeshAgent.SetDestination(waypoints[nextIndex].position);
+                _navMeshAgent.SetDestination(newWaypoint);
             }
             else {
                 nextIndex += 1;
                 if (nextIndex >= waypoints.Length) {
                     nextIndex = 0;
                 }
+                
+                // int randWanypoint = new System.Random(0, waypoints.Length);
+                // nextIndex  = UnityEngine.Random.Range(0, waypoints.Length);
+                //SceneManager.LoadScene(Random.Range(0, SceneManager.sceneCount));
+                //newWaypoint = new Vector3(UnityEngine.Random.Range(minX, maxX), 1, UnityEngine.Random.Range(minZ, maxZ));
                 SetTargetPosition();
             }
         }
     }
     void SetTargetPosition() {
-        Ray ray = Camera.main.ScreenPointToRay(waypoints[nextIndex].position);
+        //Ray ray = Camera.main.ScreenPointToRay(waypoints[nextIndex].position);
+        newWaypoint = new Vector3(UnityEngine.Random.Range(minX, maxX), 0, UnityEngine.Random.Range(minZ, maxZ));
+        Ray ray = Camera.main.ScreenPointToRay(newWaypoint);
         RaycastHit hit;
 
         if(Physics.Raycast(ray, out hit, 1000)) {
@@ -91,13 +100,13 @@ public class PlatformController : MonoBehaviour {
     }
     public void triggerPressed(string callerName) {
         Debug.Log("Trigger pressed from " + callerName);
-        if(callerName == "Hand1") {
+        if(callerName == "Hand2") {
             speed += 1;
             if(speed >= 10) {
                 speed = 10;
             }
         }
-        else if(callerName == "Hand2") {
+        else if(callerName == "Hand1") {
             speed -= 1;
             if (speed < 0) {
                 speed = 0;
