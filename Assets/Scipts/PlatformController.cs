@@ -20,6 +20,7 @@ public class PlatformController : MonoBehaviour {
     public float minX, maxX;
     public float minZ, maxZ;
     public Vector3 newWaypoint;
+    public GameObject wayPointGameObj;
 
     // Use this for initialization
     void Start () {
@@ -28,6 +29,7 @@ public class PlatformController : MonoBehaviour {
         nextIndex = 1;
         SetTargetPosition();
         _navMeshAgent = GetComponent<NavMeshAgent>();
+        minX = 0;
 
     }
     // Update is called once per frame
@@ -88,7 +90,9 @@ public class PlatformController : MonoBehaviour {
     }
     void SetTargetPosition() {
         //Ray ray = Camera.main.ScreenPointToRay(waypoints[nextIndex].position);
-        newWaypoint = new Vector3(UnityEngine.Random.Range(minX, maxX), 0, UnityEngine.Random.Range(minZ, maxZ));
+        newWaypoint = new Vector3(UnityEngine.Random.Range(minX, minX+100), 0, UnityEngine.Random.Range(minZ, maxZ));
+        Instantiate(wayPointGameObj, newWaypoint, Quaternion.Euler(0, 180, 0));
+        minX = newWaypoint.x;   // step the minx range forward
         Ray ray = Camera.main.ScreenPointToRay(newWaypoint);
         RaycastHit hit;
 
