@@ -1,6 +1,12 @@
 # Project-Dreamcatcher
 Vr Bow and arrow game ... on horseback yeah!
 
+<a href="https://youtu.be/SmhykmeCzJ4" title="Horsing Around Demo">
+  <p align="center">
+    <img width="75%" src="https://img.youtube.com/vi/SmhykmeCzJ4/maxresdefault.jpg" alt="Horsing around demo"/>
+  </p>
+</a>
+
 # Instructions
 - Place the wand with the text overlay in your right hand
 - Squeeze the grip button on the right hand controller to go faster, left hand grip to go slower
